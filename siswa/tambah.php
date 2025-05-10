@@ -18,11 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat = $_POST['alamat'] ?? '';
     $jenis_kelamin = $_POST['jenis_kelamin'] ?? '';
 
-    // Validasi sederhana
     if (!$nama_depan || !$nis) {
         $error = "Nama depan dan NIS wajib diisi.";
     } else {
-        // Proses upload foto jika ada
+
         $foto = '';
         if (!empty($_FILES['foto']['name'])) {
             $target_dir = "../uploads/";
@@ -32,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             move_uploaded_file($_FILES['foto']['tmp_name'], $target_file);
         }
 
-        // Simpan ke database
         $stmt = $pdo->prepare("INSERT INTO siswa (nama_depan, nama_belakang, no_hp, nis, alamat, jenis_kelamin, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$nama_depan, $nama_belakang, $no_hp, $nis, $alamat, $jenis_kelamin, $foto]);
 
