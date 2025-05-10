@@ -15,7 +15,6 @@ if (!$id) {
 $error = '';
 $success = '';
 
-// Ambil data siswa berdasarkan ID
 $stmt = $pdo->prepare("SELECT * FROM siswa WHERE id = ?");
 $stmt->execute([$id]);
 $siswa = $stmt->fetch();
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$nama_depan || !$nis) {
         $error = "Nama depan dan NIS wajib diisi.";
     } else {
-        $foto = $siswa['foto']; // default tetap foto lama
+        $foto = $siswa['foto']; 
 
         if (!empty($_FILES['foto']['name'])) {
             $target_dir = "../uploads/";
@@ -49,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$nama_depan, $nama_belakang, $no_hp, $nis, $alamat, $jenis_kelamin, $foto, $id]);
 
         $success = "Data siswa berhasil diperbarui!";
-        // Refresh data siswa
+        
         $stmt = $pdo->prepare("SELECT * FROM siswa WHERE id = ?");
         $stmt->execute([$id]);
         $siswa = $stmt->fetch();
