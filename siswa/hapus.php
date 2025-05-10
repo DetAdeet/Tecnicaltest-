@@ -10,7 +10,6 @@ if (!isset($_SESSION['admin_id'])) {
 $id = $_GET['id'] ?? null;
 
 if ($id) {
-    // Ambil nama file foto dulu untuk dihapus dari folder
     $stmt = $pdo->prepare("SELECT foto FROM siswa WHERE id = ?");
     $stmt->execute([$id]);
     $data = $stmt->fetch();
@@ -18,11 +17,10 @@ if ($id) {
     if ($data && !empty($data['foto'])) {
         $filePath = "../uploads/" . $data['foto'];
         if (file_exists($filePath)) {
-            unlink($filePath); // hapus foto dari folder
+            unlink($filePath); 
         }
     }
 
-    // Hapus dari database
     $stmt = $pdo->prepare("DELETE FROM siswa WHERE id = ?");
     $stmt->execute([$id]);
 
