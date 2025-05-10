@@ -2,25 +2,22 @@
 require_once('config/database.php');
 session_start();
 
-// Ambil semua siswa
+
 $siswa_list = $pdo->query("SELECT * FROM siswa")->fetchAll();
 
-// Ambil ID siswa dari URL
+
 $id_siswa = $_GET['id'] ?? null;
 $siswa = null;
 $ekskul = [];
 $ekskul_diikuti = [];
 
 if ($id_siswa) {
-    // Ambil data siswa terpilih
     $stmt = $pdo->prepare("SELECT * FROM siswa WHERE id = ?");
     $stmt->execute([$id_siswa]);
     $siswa = $stmt->fetch();
 
-    // Ambil semua ekskul
     $ekskul = $pdo->query("SELECT * FROM eskul")->fetchAll();
 
-    // Ambil ekskul yang diikuti siswa
     $stmt = $pdo->prepare("SELECT * FROM siswa_eskul WHERE siswa_id = ?");
     $stmt->execute([$id_siswa]);
     $ekskul_diikuti = $stmt->fetchAll(PDO::FETCH_GROUP|PDO::FETCH_UNIQUE);
