@@ -25,7 +25,6 @@
     <h1>Selamat Datang di Dashboard</h1>
     <p>Silakan pilih menu di sidebar.</p>
   </div>
-  <!-- Tambahkan konten lainnya di sini -->
 </div>
 
 </body>
