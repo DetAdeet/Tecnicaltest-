@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             move_uploaded_file($_FILES['foto']['tmp_name'], $target_file);
         }
 
-        // Perbaikan query dan eksekusi
         $stmt = $pdo->prepare("INSERT INTO eskul (nama_ekstrakulikuler, nama_penannggungjawab_ekstrakulikuler, status_ekstrakulikuler, foto) VALUES (?, ?, ?, ?)");
        $stmt->execute([$nama_ekstrakulikuler, $nama_penannggungjawab_ekstrakulikuler, $status_ekstrakulikuler, $foto]);
 
