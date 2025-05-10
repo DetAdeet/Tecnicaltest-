@@ -16,7 +16,6 @@ if (!$id) {
     exit;
 }
 
-// Ambil data ekskul berdasarkan ID
 $stmt = $pdo->prepare("SELECT * FROM eskul WHERE id = ?");
 $stmt->execute([$id]);
 $data = $stmt->fetch();
@@ -26,17 +25,15 @@ if (!$data) {
     exit;
 }
 
-// Proses update ketika form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = $_POST['nama_ekstrakulikuler'] ?? '';
     $penanggung_jawab = $_POST['nama_penannggungjawab_ekstrakulikuler'] ?? '';
     $status = $_POST['status_ekstrakulikuler'] ?? '';
-    $foto = $data['foto']; // default tetap pakai foto lama
+    $foto = $data['foto']; 
 
     if (!$nama || !$penanggung_jawab) {
         $error = "Nama dan Penanggung Jawab wajib diisi.";
     } else {
-        // Jika upload foto baru
         if (!empty($_FILES['foto']['name'])) {
             $target_dir = "../uploads/";
             if (!is_dir($target_dir)) mkdir($target_dir);
@@ -45,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             move_uploaded_file($_FILES['foto']['tmp_name'], $target_file);
         }
 
-        // Update data ke database
         $stmt = $pdo->prepare("UPDATE eskul SET nama_ekstrakulikuler = ?, nama_penannggungjawab_ekstrakulikuler = ?, status_ekstrakulikuler = ?, foto = ? WHERE id = ?");
         $stmt->execute([$nama, $penanggung_jawab, $status, $foto, $id]);
 
