@@ -11,7 +11,6 @@ $admin_id = $_SESSION['admin_id'];
 $error = '';
 $success = '';
 
-// Ambil data admin dari database
 $stmt = $pdo->prepare("SELECT * FROM admin WHERE id = ?");
 $stmt->execute([$admin_id]);
 $admin = $stmt->fetch();
@@ -20,7 +19,6 @@ if (!$admin) {
     die("Data admin tidak ditemukan!");
 }
 
-// Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_depan = $_POST['nama_depan'] ?? '';
     $nama_belakang = $_POST['nama_belakang'] ?? '';
@@ -29,15 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jenis_kelamin = $_POST['jenis_kelamin'] ?? '';
     $password_baru = $_POST['password_baru'] ?? '';
 
-    // Validasi sederhana
     if ($nama_depan && $email) {
-        // Jika password baru diisi, update sekalian
         if (!empty($password_baru)) {
             $hashed_password = password_hash($password_baru, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("UPDATE admin SET nama_depan=?, nama_belakang=?, email=?, tanggal_lahir=?, jenis_kelamin=?, password=? WHERE id=?");
             $stmt->execute([$nama_depan, $nama_belakang, $email, $tanggal_lahir, $jenis_kelamin, $hashed_password, $admin_id]);
         } else {
-            // Tanpa ubah password
             $stmt = $pdo->prepare("UPDATE admin SET nama_depan=?, nama_belakang=?, email=?, tanggal_lahir=?, jenis_kelamin=? WHERE id=?");
             $stmt->execute([$nama_depan, $nama_belakang, $email, $tanggal_lahir, $jenis_kelamin, $admin_id]);
         }
