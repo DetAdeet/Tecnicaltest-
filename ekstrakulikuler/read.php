@@ -30,7 +30,7 @@ $ekskul_list = $stmt->fetchAll();
             max-width: 80px;
             height: auto;
         }
-        /* Umum */
+        
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -62,7 +62,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Form */
 form {
     display: flex;
     flex-direction: column;
@@ -96,7 +95,6 @@ button:hover {
     background: #2980b9;
 }
 
-/* Tabel */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -118,7 +116,6 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Login */
 .login-container {
     max-width: 400px;
     margin: 100px auto;
@@ -128,7 +125,6 @@ tr:nth-child(even) {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Notifikasi */
 .alert {
     padding: 10px;
     border-radius: 6px;
